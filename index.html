@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Leaflet Large amount of data display
+    </title>
+    <link rel="stylesheet" href="./lib/leaflet/leaflet.css"/>
+    <style>
+        h1,p {
+            font-size: 1em;
+            line-height: 1.5;
+            color: #FFFFFF;
+            background-color: purple;
+            text-align: center;
+            text-transform: capitalize;
+            margin: 0;
+        }
+        p{
+            color: red;
+        }
+
+        #mapid {
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+<h1>Display large amount of data in leaflet.</h1>
+<p>(10000 nodes and 10000 lines)</p>
+<div id="mapid"></div>
+<script src="./lib/leaflet/leaflet.js"></script>
+<script src="./js/WLeaflet.js"></script>
+<script src="./js/WTopo.js"></script>
+<script>
+    //初始化地图
+    var oWLeafLet = new W.Leaflet();
+    oWLeafLet.init("mapid", {
+        center: [31.22, 115.05],
+        zoom: 4,
+    });
+
+    //绘制Topo
+    var options = {
+        imgMap: {
+            "key_1": "./images/node1.svg"
+        }
+    };
+    var oWTopo = L.wTopo(options, function(){
+        //添加到地图中
+        oWTopo.addTo(oWLeafLet.map);
+
+        //TopoData
+        var oTopoData = {
+            nodes: [],
+            links: []
+        };
+        var num = 1000;
+        for(var i = 0; i < num; i++){
+            var oNode = {
+                id: i,
+                x: Math.random() * 180 * (Math.random() > 0.5 ? 1 : -1),//经度
+                y: Math.random() * 90 * (Math.random() > 0.5 ? 1 : -1),
+                imgKey: "key_1"
+            };
+            oTopoData.nodes.push(oNode);
+        }
+        var linkNum = 1000;
+        for(var i = 0; i < linkNum; i++){
+            var oLink = {
+                id: i,
+                srcNodeId: Math.floor(Math.random() * num),
+                dstNodeId: Math.floor(Math.random() * num),
+                uiLinkColor: "#FF8833",
+                uiLinkWidth: 0.1
+            };
+            oTopoData.links.push(oLink);
+        }
+
+        //绘制
+        oWTopo.drawTopo(oTopoData);
+    });
+
+</script>
+</body>
+</html>
