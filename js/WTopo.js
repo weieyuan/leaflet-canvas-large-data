@@ -64,10 +64,10 @@
             });
         },
         _getNodeWidth: function () {
-            return this._getZoom() * 2.5;
+            return this._getZoom() * 3;
         },
         _getNodeHeight: function () {
-            return this._getZoom() * 2.5;
+            return this._getZoom() * 3;
         },
         _drawLinks: function () {
             var self = this;
