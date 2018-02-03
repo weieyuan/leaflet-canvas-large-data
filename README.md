@@ -9,4 +9,4 @@
 ![demo](./demo/demo1.gif)
 
 ## 运行
-下载或者克隆参考代码，直接访问index.html文件。
+下载或者克隆仓库代码，直接访问index.html文件。
